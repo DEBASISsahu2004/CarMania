@@ -1,5 +1,6 @@
 async function main(){
         // Retrieve CSS custom property values for colors and layout settings, and select the video element
+    AOS.init();
     let primary_color_1 = getComputedStyle(document.documentElement).getPropertyValue('--primary_color_1');
     let primary_color_2 = getComputedStyle(document.documentElement).getPropertyValue('--primary_color_2');
     let secondary_color_1 = getComputedStyle(document.documentElement).getPropertyValue('--secondary_color_1');
@@ -252,7 +253,7 @@ async function main(){
                 rs = 'cr'
             }
             html += `
-            <div class="items ${brand}" id="${product.uid}">
+            <div data-aos="fade-up" class="items ${brand}" id="${product.uid}">
                 <div class="image_container">
                     <img src="${product.image1}" alt="${product.name}">
                 </div>
@@ -935,6 +936,7 @@ async function main(){
 
     window.onload = log;
 } 
+
 let ferrari,astonMartin,merch,part;
 async function getData(){
     const response = await fetch("/get/ferrari",{
@@ -965,6 +967,11 @@ async function getData(){
 async function manage(){
     await getData();
     main();
+    let preloader = document.querySelector('.preloader');
+    preloader.style.setProperty('transform', 'translateY(-100%)');
+    preloader.style.setProperty('opacity', '0');
+    setTimeout(() => {
+        preloader.style.setProperty('display', 'none');
+    }, 300);
 }
-
 manage();
