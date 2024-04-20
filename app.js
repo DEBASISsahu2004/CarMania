@@ -126,9 +126,8 @@ app.post("/update/cart", async function(req,res){
     }
 })
 
-
 app.all("*",function(req,res){
-    res.status(404).send("Not Found");
+    res.status(404).sendFile(path.resolve(__dirname,"public","error.html"));
 });
 
 app.listen(3000,()=>{
