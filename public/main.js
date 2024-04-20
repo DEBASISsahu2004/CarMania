@@ -252,14 +252,15 @@ async function main(){
             if(brand === 'ferrari' || brand === 'astonMartin'){
                 rs = 'cr'
             }
-            html += `
-            <div data-aos="fade-up" class="items ${brand}" id="${product.uid}">
-                <div class="image_container">
-                    <img src="${product.image1}" alt="${product.name}">
+            html += `<div data-aos="fade-up">
+                <div class="items ${brand}" id="${product.uid}">
+                    <div class="image_container">
+                        <img src="${product.image1}" alt="${product.name}">
+                    </div>
+                    <p class="productName">${product.name}</p>
+                    <p>Rs. ${product.price} ${rs}</p>
+                    <button>View More</button>
                 </div>
-                <p class="productName">${product.name}</p>
-                <p>Rs. ${product.price} ${rs}</p>
-                <button>View More</button>
             </div>
             `;
         }
