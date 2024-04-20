@@ -1,0 +1,136 @@
+const express = require ("express");
+const mongoose = require ("mongoose");  
+const app = express();
+mongoose.connect("mongodb://localhost:27017/carmania");
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.static("public"));
+const path = require("path");
+const User = require("./public/users.js");
+const Car = require("./public/cars.js");
+const Merch = require("./public/merch.js");
+const Part = require("./public/parts.js");
+
+
+app.post("/signup",async function(req,res){
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        wishlist: [],
+        cart: []
+    });
+   if(await User.findOne({username:req.body.username})){
+    res.status(404).json({status:404,message: "User already exists"});
+   }
+   else{
+    try{
+        await user.save();
+        res.status(200).json({status:200,message: "User registered successfully"});
+    }catch(e){
+        res.status(400).json({status:400,message: "Some error occurred"});
+    }
+   }
+})
+
+
+app.post("/login",async function(req,res){
+    let user =await  User.findOne({username: req.body.username});
+    try{if(user){
+        if(user.password === req.body.password){
+            res.status(200).json({status:200,message: "Login successful"});
+        }
+        else{
+            res.status(404).json({status:403,message: "Incorrect password"});
+        }
+    }else{
+        res.status(404).json({status:404,message: "User not found"});
+    }}catch(e){
+        console.log(e);
+        res.status(400).json({status:400,message: "Some error occurred"});
+    }
+})
+
+
+app.get("/get/ferrari",async function(req,res){
+    let cars = await Car.find({cat: "ferrari"});
+    res.status(200).json(cars);
+});
+
+app.get("/get/astonmartin",async function(req,res){
+    let cars = await Car.find({cat: "astonMartin"});
+    res.status(200).json(cars);
+});
+
+app.get("/get/merchandise",async function(req,res){
+    let merch = await Merch.find();
+    res.status(200).json(merch);
+});
+
+app.get("/get/parts",async function(req,res){
+    let parts = await Part.find();
+    res.status(200).json(parts);
+});    
+
+app.get("/getUser/:username",async function(req,res){
+    let username = req.params.username;
+    try{
+        let user = await User.findOne({username:username});
+        res.status(200).json(user);
+    }catch(e){
+        console.log(e);
+        res.status(404).json({message:"user not found"});
+    }
+})
+
+
+app.post("/update/wishlist", async function(req,res){
+    let userID= req.body.userID;
+    let wishlist = req.body.wishlistItemId;
+    try{
+        let user = await User.findOneAndUpdate(
+            {_id: userID},
+            {wishlist:wishlist},
+            {new:true}
+        );
+        if(user){
+            res.status(200).json({message:"success"});
+        }
+        else{
+            res.status(404).json({message:"ERROR"});
+        }
+    }catch(e){
+        console.log(e);
+        res.status(404).json({message:"ERROR"});
+    }
+})
+
+app.post("/update/cart", async function(req,res){
+    let userID= req.body.userID;
+    let cart = req.body.cartItemId;
+    try{
+        let user = await User.findOneAndUpdate(
+            {_id: userID},
+            {cart:cart},
+            {new:true}
+        );
+        if(user){
+            res.status(200).json({message:"success"});
+        }
+        else{
+            res.status(404).json({message:"ERROR"});
+        }
+    }catch(e){
+        console.log(e);
+        res.status(404).json({message:"ERROR"});
+    }
+})
+
+
+app.all("*",function(req,res){
+    res.status(404).send("Not Found");
+});
+
+app.listen(3000,()=>{
+    console.log("listening at port 3000");
+})
