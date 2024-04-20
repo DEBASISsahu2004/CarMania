@@ -412,7 +412,7 @@ async function main(){
         setTimeout(hideAlert, 1000);
     }
     function hideAlert() {
-        alertDialog.style.transform = 'translateX(120%)'; 
+        alertDialog.style.transform = 'translateX(100%)'; 
         setTimeout(() => {
             alertDialog.style.display = 'none'; 
         }, 520);
@@ -926,7 +926,8 @@ async function main(){
     }
 
     let signup = document.querySelector('.menu_container .signup');
-    signup.addEventListener('click',()=>{
+    let signli = document.querySelector('.menu_container .signli');
+    signli.addEventListener('click',()=>{
         if(signup.innerHTML === 'Log in'){
             window.location.href = 'Account_Page/index.html';
         }else{

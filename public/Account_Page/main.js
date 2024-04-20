@@ -22,6 +22,37 @@ passInput.addEventListener('keydown', function(event) {
     }
 });
 
+let alertDialog = document.createElement('div');
+alertDialog.style.position = 'fixed';
+alertDialog.style.top = '100px';
+alertDialog.style.backgroundColor = 'rgb(16, 213, 16)';
+alertDialog.style.color = 'white';
+alertDialog.style.padding = '10px 20px';
+alertDialog.style.borderRadius = '10px';
+alertDialog.style.fontFamily = "'Poppins', sans-serif";
+alertDialog.style.fontWeight = '600';
+alertDialog.style.boxShadow = '0px 0px 20px black';
+alertDialog.style.border = 'none';
+alertDialog.style.zIndex = '1000';
+alertDialog.style.right = '10px'; 
+alertDialog.style.transform = 'translateX(100%)'; 
+alertDialog.style.transition = 'transform 0.5s';
+alertDialog.style.display = 'none';
+document.body.appendChild(alertDialog);
+function showAlert(message) {
+    alertDialog.textContent = message;
+    alertDialog.style.display = 'block'; 
+    setTimeout(() => {
+        alertDialog.style.transform = 'translateX(0)'; 
+    }, 0);
+    setTimeout(hideAlert, 2000);
+}
+function hideAlert() {
+    alertDialog.style.transform = 'translateX(100%)'; 
+    setTimeout(() => {
+        alertDialog.style.display = 'none'; 
+    }, 520);
+}
 
 const login = async function(username,password){
     try{
@@ -37,31 +68,44 @@ const login = async function(username,password){
     const data = await response.json();
     console.log(data);
     if(data.status === 200){
-        alert("User logged in successfully");
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('username', userInput.value);
-        window.location.href = '/index.html';}
+        // alert("User logged in successfully");
+        showAlert("Logged in successfully");
+        setTimeout(() => {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', userInput.value);
+            window.location.href = '/index.html';
+        }, 2200);
+        // localStorage.setItem('isLoggedIn', 'true');
+        // localStorage.setItem('username', userInput.value);
+        // window.location.href = '/index.html';
+    }
     else if (data.status === 404){
-        alert("User does not exist");
+        // alert("User does not exist");
+        showAlert("User does not exist");
         userInput.value = '';
         passInput.value = '';
     }
     else if (data.status === 403){
-        alert("Incorrect password");
+        // alert("Incorrect password");
+        showAlert("Incorrect password");
         passInput.value = '';
     }
     else{
-        alert("Some error occurred");
+        // alert("Some error occurred");
+        showAlert("Some error occurred");
         userInput.value = '';
         passInput.value = '';
     }}
     catch(e){
-        alert("some error occurred");
+        // alert("some error occurred");
+        showAlert("Some error occurred");
         console.log(e);
         userInput.value = '';
         passInput.value = '';
     }
 }
+
+
 
 // Add a submit event listener to the login form
 loginForm.addEventListener('submit', function(event) {
@@ -70,19 +114,22 @@ loginForm.addEventListener('submit', function(event) {
 
     // Check if the username is empty
     if (!userInput.value) {
-        alert('Username cannot be empty');
+        // alert('Username cannot be empty');
+        showAlert("Username cannot be empty");
         return;
     }
 
     if(userInput.value.includes(' ')){
-        alert('Username should not contain space!!');
+        // alert('Username should not contain space!!');
+        showAlert("Username should not contain space!!");
         userInput.value = '';
         return;
     }
 
     // Check if the password is less than or equal to 6 characters
     if (passInput.value.length <= 6) {
-        alert('Password should be more than 6 characters');
+        // alert('Password should be more than 6 characters');
+        showAlert("Password should be more than 6 characters");
         passInput.value = '';
         return;
     }
@@ -149,24 +196,34 @@ const signup = async function(username,email,password){
     const data = await response.json();
     console.log(data);
     if(data.status === 200){
-        alert("User registered successfully");
-        window.location.href = '/index.html';}
+        // alert("User registered successfully");
+        showAlert("User registered successfully");
+        setTimeout(() => {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', ruserInput.value);
+            window.location.href = '/index.html';
+        }, 2200);
+        // window.location.href = '/index.html';
+    }
     else if (data.status === 404){
-        alert("User already exists");
+        // alert("User already exists");
+        showAlert("User already exists");
         ruserInput.value = '';
         remailInput.value = '';
         rpassInput.value = '';
         rcpassInput.value = '';
     }
     else{
-        alert("Some error occurred");
+        // alert("Some error occurred");
+        showAlert("Some error occurred");
         ruserInput.value = '';
         remailInput.value = '';
         rpassInput.value = '';
         rcpassInput.value = '';
     }}
     catch(e){
-        alert("some error occurred");
+        // alert("some error occurred");
+        showAlert("Some error occurred");
         console.log(e);
         ruserInput.value = '';
         remailInput.value = '';
@@ -183,26 +240,30 @@ registerForm.addEventListener('submit', async function (event) {
 
     // Check if the username is empty
     if (!ruserInput.value) {
-        alert('Username cannot be empty');
+        // alert('Username cannot be empty');
+        showAlert("Username cannot be empty");
         return;
     }
 
     if(ruserInput.value.includes(' ')){
-        alert('Username should not contain space!!');
+        // alert('Username should not contain space!!');
+        showAlert("Username should not contain space!!");
         ruserInput.value = '';
         return;
     }
 
     // Check if the email is valid
     if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(remailInput.value)) {
-        alert('Please enter a valid email');
+        // alert('Please enter a valid email');
+        showAlert("Please enter a valid email");
         remailInput.value = '';
         return;
     }
 
     // Check if the password is less than or equal to 6 characters
     if (rpassInput.value.length <= 6) {
-        alert('Password should be more than 6 characters');
+        // alert('Password should be more than 6 characters');
+        showAlert("Password should be more than 6 characters");
         rpassInput.value = '';
         rcpassInput.value = '';
         return;
@@ -210,21 +271,20 @@ registerForm.addEventListener('submit', async function (event) {
 
     // Check if the password and confirm password match
     if (rpassInput.value !== rcpassInput.value) {
-        alert('Password and Confirm Password should be the same');
+        // alert('Password and Confirm Password should be the same');
+        showAlert("Password and Confirm Password should be the same");
         rcpassInput.value = '';
         return;
     }
 
     // If validation passes, set a flag in local storage and redirect to the main page
-    let user = {
-        username: ruserInput.value,
-        email: remailInput.value,
-        password: rpassInput.value,
-    }
-    console.log(user);
+    // let user = {
+    //     username: ruserInput.value,
+    //     email: remailInput.value,
+    //     password: rpassInput.value,
+    // }
+    // console.log(user);
     await signup(ruserInput.value,remailInput.value,rpassInput.value);
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('username', ruserInput.value);
 });
 
 // Initialize an array to keep track of the visibility state of password fields
