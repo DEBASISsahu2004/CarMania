@@ -1,7 +1,7 @@
 const express = require ("express");
 const mongoose = require ("mongoose");  
 const app = express();
-mongoose.connect("mongodb://localhost:27017/carmania");
+mongoose.connect("mongodb+srv://debasis:mongodb@cluster0.pqqw5uj.mongodb.net/carmania");
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
