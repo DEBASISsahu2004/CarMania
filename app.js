@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express = require ("express");
 const mongoose = require ("mongoose");  
 const app = express();
-mongoose.connect("mongodb+srv://debasis:mongodb@cluster0.pqqw5uj.mongodb.net/carmania");
+mongoose.connect(process.env.MONGO_URI);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
@@ -130,6 +131,7 @@ app.all("*",function(req,res){
     res.status(404).sendFile(path.resolve(__dirname,"public","error.html"));
 });
 
-app.listen(3000,()=>{
-    console.log("listening at port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
+    console.log(`listening at port ${PORT}`);
 })
