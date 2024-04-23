@@ -966,7 +966,28 @@ async function getData(){
     console.log(part);
 }
 
+async function connectdb(){
+    try{
+        let response = await fetch("/connectdb",{
+            method: "GET"
+        });
+        let data = await response.json();
+        if(data.status=== 200){
+            console.log("connected at frontend");
+        }
+        else{
+            console.log("failed to connect at frontend");
+            connectdb();
+        }
+    }catch(e){
+        console.log(e);
+        connectdb();
+    }
+}
+
+
 async function manage(){
+    await connectdb();
     await getData();
     main();
     let preloader = document.querySelector('.preloader');

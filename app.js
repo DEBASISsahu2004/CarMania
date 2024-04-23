@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require ("express");
 const mongoose = require ("mongoose");  
 const app = express();
-mongoose.connect(process.env.MONGO_URI);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
@@ -12,6 +11,16 @@ const Car = require("./public/cars.js");
 const Merch = require("./public/merch.js");
 const Part = require("./public/parts.js");
 
+
+
+app.get("/connectdb",async function(req,res){
+    try{
+        await mongoose.connect(process.env.MONGO_URI);
+        res.status(200).json({status:200,message:"Connected to database"});
+    }catch(e){
+        res.status(400).json({status:400,message:"Error connecting to database"});
+    }
+})
 
 app.post("/signup",async function(req,res){
     const user = new User({
