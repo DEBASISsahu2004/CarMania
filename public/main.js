@@ -890,10 +890,10 @@ async function main(){
 
     let user=null;
     async function log(){
+        console.log("This is working")
         let navQuote = document.querySelector('.brand_name p');
         if (localStorage.getItem('isLoggedIn') === 'true') {
             console.log('User has logged in successfully');
-            localStorage.setItem('isLoggedIn', 'false');
 
             try{
                 user = await fetch(`/getUser/${localStorage.getItem('username')}`,{
@@ -912,6 +912,7 @@ async function main(){
 
 
             navQuote.innerHTML = `Hello <span>${localStorage.getItem('username')}</span>`;
+            console.log(localStorage.getItem('username'));
             signup.innerHTML = 'Log out';
         } else {
             signup.innerHTML = 'Log in';
@@ -928,15 +929,16 @@ async function main(){
     let signup = document.querySelector('.menu_container .signup');
     let signli = document.querySelector('.menu_container .signli');
     signli.addEventListener('click',()=>{
+        console.log("login is clicked")
         if(signup.innerHTML === 'Log in'){
             window.location.href = 'Account_Page/index.html';
         }else{
+            localStorage.setItem('username', '');
+            localStorage.setItem('isLoggedIn', 'false');
             log();
         }
-        window.onload = log;
     });
-
-    window.onload = log;
+    log();
 } 
 
 let ferrari,astonMartin,merch,part;
