@@ -27,7 +27,7 @@ Getting started with CarMania is quick and effortless:
 2. **Install Dependencies**: Navigate to the project directory and install the necessary dependencies with `npm install`.
 3. **Launch the Application**: Start the local server and make the application available for requests using the command `npm start`.
 
-Once set up, you can access the CarMania website locally at http://localhost:5000.
+Once set up, you can access the CarMania website locally at http://localhost:3000.
 
 ## Comprehensive Application Structure
 
