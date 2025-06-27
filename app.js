@@ -42,7 +42,7 @@ app.get("/connectdb",async function(req,res){
         console.error("Database connection error:", e);
         res.status(400).json({status:400,message:"Error connecting to database", error: e.message});
     }
-}))
+})
 
 app.post("/signup",async function(req,res){
     const user = new User({

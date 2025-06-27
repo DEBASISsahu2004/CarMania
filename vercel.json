@@ -12,8 +12,21 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/favicon.ico",
+      "dest": "/public/Images/Index_favicon.png"
+    },
+    {
+      "src": "/",
+      "dest": "/public/index.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/$1"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }
