@@ -425,7 +425,7 @@ async function main(){
         if(n!=1){
             let userID= user._id;
             try{    
-                let response= await fetch("http://localhost:3000/update/wishlist",{
+                let response= await fetch(getApiUrl(CONFIG.ENDPOINTS.UPDATE_WISHLIST),{
                     method:"POST",
                     headers:{
                         "Content-Type":"application/json"
@@ -527,7 +527,7 @@ async function main(){
         if(n!=1){
             let userID= user._id;
             try{    
-                let response= await fetch("http://localhost:3000/update/cart",{
+                let response= await fetch(getApiUrl(CONFIG.ENDPOINTS.UPDATE_CART),{
                     method:"POST",
                     headers:{
                         "Content-Type":"application/json"
@@ -943,25 +943,25 @@ async function main(){
 
 let ferrari,astonMartin,merch,part;
 async function getData(){
-    const response = await fetch("http://localhost:3000/get/ferrari",{
+    const response = await fetch(getApiUrl(CONFIG.ENDPOINTS.GET_FERRARI),{
         method:"GET"
     });
     ferrari = await response.json();
     console.log(ferrari);
 
-    const response1 = await fetch("http://localhost:3000/get/astonmartin",{
+    const response1 = await fetch(getApiUrl(CONFIG.ENDPOINTS.GET_ASTON_MARTIN),{
         method:"GET"
     });
     astonMartin = await response1.json();
     console.log(astonMartin);
 
-    const response2 = await fetch("http://localhost:3000/get/merchandise",{
+    const response2 = await fetch(getApiUrl(CONFIG.ENDPOINTS.GET_MERCHANDISE),{
         method:"GET"
     });
     merch = await response2.json();
     console.log(merch);
 
-    const response3 = await fetch("http://localhost:3000/get/parts",{
+    const response3 = await fetch(getApiUrl(CONFIG.ENDPOINTS.GET_PARTS),{
         method:"GET"
     });
     part = await response3.json();
@@ -970,7 +970,7 @@ async function getData(){
 
 async function connectdb(){
     try{
-        let response = await fetch("http://localhost:3000/connectdb",{
+        let response = await fetch(getApiUrl(CONFIG.ENDPOINTS.CONNECT_DB),{
             method: "GET"
         });
         let data = await response.json();

@@ -56,7 +56,7 @@ function hideAlert() {
 
 const login = async function(username,password){
     try{
-    const response = await fetch("http://localhost:3000/login",{
+    const response = await fetch(getApiUrl(CONFIG.ENDPOINTS.LOGIN),{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -184,7 +184,7 @@ rcpassInput.addEventListener('keydown', function(event) {
 
 const signup = async function(username,email,password){
     try{
-    const response = await fetch("http://localhost:3000/signup",{
+    const response = await fetch(getApiUrl(CONFIG.ENDPOINTS.SIGNUP),{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
