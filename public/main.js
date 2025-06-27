@@ -425,7 +425,7 @@ async function main(){
         if(n!=1){
             let userID= user._id;
             try{    
-                let response= await fetch("/update/wishlist",{
+                let response= await fetch("http://localhost:3000/update/wishlist",{
                     method:"POST",
                     headers:{
                         "Content-Type":"application/json"
@@ -527,7 +527,7 @@ async function main(){
         if(n!=1){
             let userID= user._id;
             try{    
-                let response= await fetch("/update/cart",{
+                let response= await fetch("http://localhost:3000/update/cart",{
                     method:"POST",
                     headers:{
                         "Content-Type":"application/json"
@@ -943,25 +943,25 @@ async function main(){
 
 let ferrari,astonMartin,merch,part;
 async function getData(){
-    const response = await fetch("/get/ferrari",{
+    const response = await fetch("http://localhost:3000/get/ferrari",{
         method:"GET"
     });
     ferrari = await response.json();
     console.log(ferrari);
 
-    const response1 = await fetch("/get/astonmartin",{
+    const response1 = await fetch("http://localhost:3000/get/astonmartin",{
         method:"GET"
     });
     astonMartin = await response1.json();
     console.log(astonMartin);
 
-    const response2 = await fetch("/get/merchandise",{
+    const response2 = await fetch("http://localhost:3000/get/merchandise",{
         method:"GET"
     });
     merch = await response2.json();
     console.log(merch);
 
-    const response3 = await fetch("/get/parts",{
+    const response3 = await fetch("http://localhost:3000/get/parts",{
         method:"GET"
     });
     part = await response3.json();
@@ -970,7 +970,7 @@ async function getData(){
 
 async function connectdb(){
     try{
-        let response = await fetch("/connectdb",{
+        let response = await fetch("http://localhost:3000/connectdb",{
             method: "GET"
         });
         let data = await response.json();
