@@ -24,16 +24,25 @@ const Car = require("./public/cars.js");
 const Merch = require("./public/merch.js");
 const Part = require("./public/parts.js");
 
+// Health check endpoint
+app.get("/", function(req, res) {
+    res.json({ message: "CarMania API is running!", timestamp: new Date().toISOString() });
+});
 
+// API health check
+app.get("/health", function(req, res) {
+    res.json({ status: "OK", message: "API is healthy" });
+});
 
 app.get("/connectdb",async function(req,res){
     try{
         await mongoose.connect(process.env.MONGO_URI);
         res.status(200).json({status:200,message:"Connected to database"});
     }catch(e){
-        res.status(400).json({status:400,message:"Error connecting to database"});
+        console.error("Database connection error:", e);
+        res.status(400).json({status:400,message:"Error connecting to database", error: e.message});
     }
-})
+}))
 
 app.post("/signup",async function(req,res){
     const user = new User({

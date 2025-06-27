@@ -3,7 +3,7 @@ const CONFIG = {
     // Automatically detect if running locally or on production
     API_BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
         ? 'http://localhost:3000' 
-        : 'https://car-mania-ivory.vercel.app',
+        : 'https://car-mania-ivory.vercel.app/api',
     ENDPOINTS: {
         CONNECT_DB: '/connectdb',
         LOGIN: '/login',

@@ -970,20 +970,26 @@ async function getData(){
 
 async function connectdb(){
     try{
+        console.log("Attempting to connect to API:", getApiUrl(CONFIG.ENDPOINTS.CONNECT_DB));
         let response = await fetch(getApiUrl(CONFIG.ENDPOINTS.CONNECT_DB),{
             method: "GET"
         });
+        
+        if (!response.ok) {
+            console.error("API request failed:", response.status, response.statusText);
+            return;
+        }
+        
         let data = await response.json();
         if(data.status=== 200){
             console.log("connected at frontend");
         }
         else{
-            console.log("failed to connect at frontend");
-            connectdb();
+            console.log("failed to connect at frontend", data);
         }
     }catch(e){
-        console.log(e);
-        connectdb();
+        console.error("Connection error:", e);
+        console.log("API URL being used:", getApiUrl(CONFIG.ENDPOINTS.CONNECT_DB));
     }
 }
 
